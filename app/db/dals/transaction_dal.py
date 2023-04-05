@@ -27,7 +27,7 @@ class TransactionDAL:
         return q.scalars().first()
 
     async def get_nearest_transaction(self, search_date: datetime):
-        query = select(Transaction.amount).where(Transaction.timestamp < search_date).\
+        query = select(Transaction.new_balance).where(Transaction.timestamp < search_date).\
                       order_by(Transaction.timestamp.desc()).limit(1)
         result = await self.db_session.execute(query)
         return result.scalars().first()
