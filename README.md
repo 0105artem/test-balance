@@ -11,7 +11,7 @@
     ```
 - Get User Balance: Узнать какой был баланс у пользователя в дату `2023-10-30T00:00:00.00000000`
     ```
-    curl -X GET 'http://localhost:8000/v1/user/1?date=2023-10-30T00:00:00.00000000'
+    curl -X GET 'http://localhost:8000/v1/user/1/balance?date=2023-10-30T00:00:00.00000000'
     ```
 - Add Transaction (Deposit): Пополнить баланс пользователя с id `1` на сумму `100`.
     ```
