@@ -13,7 +13,7 @@ class UserId(BaseModel):
 
 
 class UserDate(BaseModel):
-    date: datetime
+    date: Optional[datetime] = None
 
 
 class UserDB(UserBase):

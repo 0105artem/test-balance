@@ -19,7 +19,9 @@ Base = declarative_base()
 async def get_async_session():
     session = AsyncLocalSession()
     try:
+        await session.begin()
         yield session
+        await session.commit()
     except Exception as e:
         logger.error(e)
         await session.rollback()

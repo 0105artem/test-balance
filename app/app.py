@@ -2,14 +2,15 @@ from aiohttp import web
 
 from app.db.config import engine
 from app.api import users, transactions
+from app.middlewares import middlewares
 
-app = web.Application()
-app['db'] = engine
+app = web.Application(middlewares=[middlewares.bad_responses])
 
 
-def add_routes(app):
+def add_routes(app: web.Application):
     app.router.add_route('POST', r'/v1/user', users.create_user, name='create_user')
     app.router.add_route('GET', r'/v1/user/{id}', users.get_user, name='get_user')
+    app.router.add_route('GET', r'/v1/user/{id}/balance', users.get_user_balance, name='get_user_balance')
     app.router.add_route('POST', r'/v1/transaction', transactions.add_transaction, name='add_transaction')
     app.router.add_route('GET', r'/v1/transaction/{id}', transactions.get_transaction, name='incoming_transaction')
 

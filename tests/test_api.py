@@ -4,7 +4,7 @@ import uuid
 
 
 def assert_balance(user, expected_balance, date=None):
-    url = f'http://localhost:8000/v1/user/{user["id"]}'
+    url = f'http://localhost:8000/v1/user/{user["id"]}/balance'
     if date:
         url += f'?date={date}'
     balance_resp = requests.get(url)
@@ -14,13 +14,13 @@ def assert_balance(user, expected_balance, date=None):
 
 def test_api():
     user_resp = requests.post('http://localhost:8000/v1/user', json={
-        'name': 'petya'
+        'name': 'vanya'
     })
 
     assert user_resp.status_code == 201
     user = user_resp.json()
     assert user['id'] > 0
-    assert user['name'] == 'petya'
+    assert user['name'] == 'vanya'
 
     assert_balance(user, '0.00')
 
@@ -50,7 +50,6 @@ def test_api():
     txn_resp = requests.post('http://localhost:8000/v1/transaction', json=txn)
     assert txn_resp.status_code == 200
     assert_balance(user, '50.00')
-
 
     txn = {
         'uid': str(uuid.uuid4()),
